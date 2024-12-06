@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://pxjty0kthfhu"]
+
+[ext_resource type="Script" uid="uid://skp0o1bguvbf" path="res://turn.gd" id="1_grw3k"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_211yx"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_bbrfm"]
+sky_material = SubResource("ProceduralSkyMaterial_211yx")
+
+[sub_resource type="Environment" id="Environment_10g7u"]
+background_mode = 2
+sky = SubResource("Sky_bbrfm")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+volumetric_fog_length = 97.46
+volumetric_fog_temporal_reprojection_enabled = false
+
+[sub_resource type="FogMaterial" id="FogMaterial_531a7"]
+albedo = Color(0.235294, 1, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xw7jv"]
+size = Vector2(10000, 10000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ulcgi"]
+albedo_color = Color(3.85046e-07, 0.679105, 0.384046, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_1h0ue"]
+material = SubResource("StandardMaterial3D_ulcgi")
+size = Vector2(500, 500)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_10g7u")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.776697, -0.104483, 0.621149, 0.498226, -0.70526, 0.504361, 0.385374, 0.701208, 0.599829, 0, 0, 0)
+shadow_enabled = true
+
+[node name="FogVolume" type="FogVolume" parent="."]
+size = Vector3(50, 50, 50)
+material = SubResource("FogMaterial_531a7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_xw7jv")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -157.6)
+mesh = SubResource("QuadMesh_1h0ue")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.449194, 0, -0.893434, 0, 1, 0, 0.893434, 0, 0.449194, -17.512, 20, 21.7813)
+script = ExtResource("1_grw3k")
